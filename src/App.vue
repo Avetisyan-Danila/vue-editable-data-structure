@@ -1,17 +1,21 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <data-view
+      :data="data"
+      @update-data="handleUpdateData"
+  />
 </template>
 
-<script>
-import HelloWorld from './components/HelloWorld.vue'
+<script setup>
+import dataMocks from "@/mocks/data.json"
+import DataView from "@/Views/DataView.vue";
+import { ref } from "vue";
 
-export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-}
+const data = ref(dataMocks);
+
+const handleUpdateData = (newItem) => {
+  const index = data.value.findIndex((item) => item.name === newItem.name);
+  data.value.splice(index, 1, newItem);
+};
 </script>
 
 <style>
@@ -19,8 +23,6 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  font-size: 18px;
 }
 </style>
